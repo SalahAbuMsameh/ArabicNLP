@@ -20,7 +20,7 @@ public class ArabicNormalizer {
 	 */
 	public String normalize(String text) {
 		
-	//Remove honorific sign
+		//Remove honorific sign
         text = text.replaceAll("\u0610", "");//ARABIC SIGN SALLALLAHOU ALAYHE WA SALLAM
         text = text.replaceAll("\u0611", "");//ARABIC SIGN ALAYHE ASSALLAM
         text = text.replaceAll("\u0612", "");//ARABIC SIGN RAHMATULLAH ALAYHE

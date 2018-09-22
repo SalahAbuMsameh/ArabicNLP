@@ -8,7 +8,7 @@
 	<version>1.0</version>
 	
 	<build>
-		<finalName>middleware-portal</finalName>
+		<finalName>arabic-nlp</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
