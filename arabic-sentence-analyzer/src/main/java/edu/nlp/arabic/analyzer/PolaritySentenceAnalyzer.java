@@ -22,6 +22,7 @@ public class PolaritySentenceAnalyzer {
     private Map<String, String> threeLexiconTerms;
     private Map<String, String> fourLexiconTerms;
 
+    private StringBuilder unListedTerms = new StringBuilder();
     private ArabicTokenizer tokenizer = new ArabicTokenizer();
 
     /**
@@ -63,7 +64,7 @@ public class PolaritySentenceAnalyzer {
                 if(oneLexiconTerms.containsKey(token)) {
                     increment(polarities, oneLexiconTerms.get(token));
                 } else {
-                    System.out.println(token);
+                    unListedTerms.append(token).append("\t\r");
                 }
             });
         }
@@ -117,5 +118,9 @@ public class PolaritySentenceAnalyzer {
         } else {
             polarities.put(polarity, 1);
         }
+    }
+
+    public StringBuilder getUnListedTerms() {
+        return unListedTerms;
     }
 }

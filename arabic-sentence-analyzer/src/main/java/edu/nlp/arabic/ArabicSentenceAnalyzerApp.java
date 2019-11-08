@@ -79,6 +79,7 @@ public class ArabicSentenceAnalyzerApp {
         //load sentences file
         infoMessage("loading sentences file");
         analyzeSentences(analyzer, sentencesFilePath, resultFilePath);
+        infoMessage("Done");
     }
 
     /**
@@ -165,6 +166,9 @@ public class ArabicSentenceAnalyzerApp {
 
             fileOutputStream.close();
             sentencesWorkbook.close();
+
+            Files.write(Paths.get(resultFilePath +"/un_listed_terms.txt"),
+                    analyzer.getUnListedTerms().toString().getBytes());
 
         } catch (IOException e) {
             exitError(e.getMessage());
