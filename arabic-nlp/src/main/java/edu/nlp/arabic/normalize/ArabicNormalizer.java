@@ -4,7 +4,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * 
+ * Arabic word normalizer.
+ * The normalizer search for non Arabic char's and remove them from the text.
+ *
  * @author Salah Abu Msameh
  */
 public class ArabicNormalizer {
@@ -14,7 +16,8 @@ public class ArabicNormalizer {
     private static final Pattern PATTERN = Pattern.compile(EMOJI_RANGE_REGEX);
 
 	/**
-	 * 
+	 * normalize given arabic text.
+     *
 	 * @param text
 	 * @return
 	 */
@@ -105,8 +108,8 @@ public class ArabicNormalizer {
         
         text = text.replaceAll("[a-zA-Z]", " ");
         
-        text = text.replaceAll("‘|\\!|\\@|\\#|\\$|\\%|\\^|\\&|\\*|\\)|\\(|\\_|\\+|\\~|’}"
-        		+ "|\\{|â|€|™|,|\\.|\\\\|\\>|\\<|›|—|·|â|€|/|\\*|\\-|\\+|!|@|#|$|%|^|&|\\*|\\(|\\)|-|_|=|\\}|\\{|\\'|\\\\|\\;|\\:|\"", " ");
+        text = text.replaceAll("â­|â€¦|â–ª|ï¿½|\\!|\\@|\\#|\\$|\\%|\\^|\\&|\\*|\\)|\\(|\\_|\\+|\\~}"
+        		+ "|\\{|ï¿½|ï¿½|ï¿½|,|\\.|\\\\|\\>|\\<|ï¿½|ï¿½|ï¿½|ï¿½|ï¿½|/|\\*|\\-|\\+|!|@|#|$|%|^|&|\\*|\\(|\\)|-|_|=|\\}|\\{|\\'|\\\\|\\;|\\:|\"", " ");
         text = text.replaceAll("\"|\u060C|\u061F", " ");
     	text = text.replaceAll("[0-9]", " ");
     	text = text.replaceAll("[\u0661-\u0669]", " ");
@@ -119,7 +122,8 @@ public class ArabicNormalizer {
     }
         
      /**
-      * Remove emojis for the given text
+      * Remove emojis for the given text.
+      *
       * @param text
       * @return 
       */

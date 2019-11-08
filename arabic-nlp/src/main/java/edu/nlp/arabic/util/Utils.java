@@ -41,12 +41,4 @@ public class Utils {
 
         return stopWords;
     }
-
-    /**
-     * 
-     * @param args
-     */
-    public static void main(String[] args) {
-        Utils.loadStopWords();
-    }
 }
