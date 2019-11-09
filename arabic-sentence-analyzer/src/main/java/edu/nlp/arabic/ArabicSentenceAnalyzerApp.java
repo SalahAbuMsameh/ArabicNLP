@@ -73,7 +73,7 @@ public class ArabicSentenceAnalyzerApp {
         validateFile(resultFilePath, false);
 
         //init analyzer
-        infoMessage("preparing lexicon terms...");
+        infoMessage("preparing lexicon terms");
         PolaritySentenceAnalyzer analyzer = initPolarityAnalyzer(lexiconFilePath);
 
         //load sentences file
