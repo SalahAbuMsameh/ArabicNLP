@@ -91,15 +91,33 @@ public class ArabicNormalizer {
         
         //Replace Waw Hamza Above by Waw
         text = text.replaceAll("\u0624", "\u0648");
-        
+
         //Replace Ta Marbuta by Ha
-        text = text.replaceAll("\u0629", "\u0647");
-        
+        //text = text.replaceAll("\u0629", "\u0647");
+
         //Replace Ya
         // and Ya Hamza Above by Alif Maksura
         //text = text.replaceAll("\u064A", "\u0649");
-        text = text.replaceAll("\u0626", "\u0649");
-        
+        //text = text.replaceAll("\u0626", "\u0649"); //Remove Hamza on Nabira
+
+        // Word ligatures
+        // Arabic Presentation Forms-A has a few characters defined as "word ligatures" for terms
+        // frequently used in formulaic expressions in Arabic.
+        text = text.replaceAll("\uFDF0", "");// SALLA USED AS KORANIC STOP SIGN
+        text = text.replaceAll("\uFDF1", "");// QALA USED AS KORANIC STOP SIGN
+        text = text.replaceAll("\uFDF2", "");// ALLAH ISOLATED FORM
+        text = text.replaceAll("\uFDF3", "");// AKBAR ISOLATED FORM
+        text = text.replaceAll("\uFDF4", "");// MOHAMMAD ISOLATED FORM
+        text = text.replaceAll("\uFDF5", "");// SALAM ISOLATED FORM
+        text = text.replaceAll("\uFDF6", "");// RASOUL ISOLATED FORM
+        text = text.replaceAll("\uFDF7", "");// ALAYHE ISOLATED FORM
+        text = text.replaceAll("\uFDF8", "");// WASALLAM ISOLATED FORM
+        text = text.replaceAll("\uFDF9", "");// SALLA ISOLATED FORM
+        text = text.replaceAll("\uFDFA", "");// SALLALLAHOU ALAYHE WASALLAM
+        text = text.replaceAll("\uFDFB", "");// JALLAJALALOUHOU
+        text = text.replaceAll("\uFDFC", "");// RIAL SIGN
+        text = text.replaceAll("\uFDFD", "");// BISMILLAH AR-RAHMAN AR-RAHEEM
+
         // Replace Alifs with Hamza Above/Below
         // and with Madda Above by Alif
         text = text.replaceAll("\u0622", "\u0627");
@@ -108,7 +126,7 @@ public class ArabicNormalizer {
         
         text = text.replaceAll("[a-zA-Z]", " ");
         
-        text = text.replaceAll(" …|️|⭐️|⭐|…|▪|�|\\!|\\@|\\#|\\$|\\%|\\^|\\&|\\*|\\)|\\(|\\_|\\+|\\~}"
+        text = text.replaceAll("⭐|…|▪|�|\\!|\\@|\\#|\\$|\\%|\\^|\\&|\\*|\\)|\\(|\\_|\\+|\\~}"
         		+ "|\\{|�|�|�|,|\\.|\\\\|\\>|\\<|�|�|�|�|�|/|\\*|\\-|\\+|!|@|#|$|%|^|&|\\*|\\(|\\)|-|_|=|\\}|\\{|\\'|\\\\|\\;|\\:|\"", " ");
         text = text.replaceAll("\"|\u060C|\u061F", " ");
     	text = text.replaceAll("[0-9]", " ");
