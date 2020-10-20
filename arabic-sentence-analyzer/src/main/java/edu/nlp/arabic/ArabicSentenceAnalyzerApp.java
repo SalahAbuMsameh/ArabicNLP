@@ -149,15 +149,20 @@ public class ArabicSentenceAnalyzerApp {
             IntStream.range(1, sheet.getPhysicalNumberOfRows())
                     .forEach(rowIndex -> {
 
-                        XSSFRow row = sheet.getRow(rowIndex);
-                        String sentence = row.getCell(sentenceIndex.get()).getStringCellValue().trim();
-                        String polarityValue = row.getCell(polarityIndex.get()).getStringCellValue().trim();
+                        try {
+                            XSSFRow row = sheet.getRow(rowIndex);
+                            String sentence = row.getCell(sentenceIndex.get()).getStringCellValue().trim();
+                            String polarityValue = row.getCell(polarityIndex.get()).getStringCellValue().trim();
 
-                        String polarity = analyzer.analyze(sentence);
-                        XSSFRow resultRow = resultSheet.createRow(rowIndex);
-                        resultRow.createCell(0).setCellValue(sentence);
-                        resultRow.createCell(1).setCellValue(polarity);
-                        resultRow.createCell(2).setCellValue(polarityValue);
+                            String polarity = analyzer.analyze(sentence);
+                            XSSFRow resultRow = resultSheet.createRow(rowIndex);
+                            resultRow.createCell(0).setCellValue(sentence);
+                            resultRow.createCell(1).setCellValue(polarity);
+                            resultRow.createCell(2).setCellValue(polarityValue);
+
+                        } catch (Exception ex) {
+                            System.err.println("Error at row (" + rowIndex + ") - " + ex.getMessage());
+                        }
                     });
 
             String resultFilename = "result-" + new Date().getTime() + ".xlsx";
@@ -249,7 +254,14 @@ public class ArabicSentenceAnalyzerApp {
                     .forEach(rowIndex -> {
 
                         XSSFRow row = sheet.getRow(rowIndex);
-                        String termValue = row.getCell(termIndex.get()).getStringCellValue().trim();
+                        String termValue = "";
+
+                        try {
+                            termValue = row.getCell(termIndex.get()).getStringCellValue().trim();
+                        } catch (IllegalStateException ex) {
+                            System.err.println("WARNING - ignoring value at row (" + (rowIndex + 1) + ") - " + ex.getMessage());
+                            return;
+                        }
 
                         if(termValue.length() == 0) {
                             return;
@@ -262,6 +274,8 @@ public class ArabicSentenceAnalyzerApp {
                         if(polarityValue.length() == 0) {
                             return;
                         }
+
+                        polarityValue = unifyPolarityValue(polarityValue);
 
                         switch(termValue.split("\\s+").length) {
                             case 1: {
@@ -294,15 +308,34 @@ public class ArabicSentenceAnalyzerApp {
     }
 
     /**
+     * unify the polarity value term.
      *
-     * @param msg
+     * @param polarityValue polarity value based on the lexicon
+     * @return unified polarity vale
      */
-    private static void infoMessage(String msg) {
-        System.err.println("Info - " + msg);
+    private static String unifyPolarityValue(final String polarityValue) {
+
+        String valueLowerCase = polarityValue.toLowerCase();
+
+        if("positive".contains(valueLowerCase) || "pos".contains(valueLowerCase)) {
+            return PolaritySentenceAnalyzer.POSITIVE;
+        } else if("negative".contains(valueLowerCase) || "neg".contains(valueLowerCase)) {
+            return PolaritySentenceAnalyzer.NEGATIVE;
+        } else {
+            return PolaritySentenceAnalyzer.NEUTRAL;
+        }
     }
 
     /**
-     *
+     * print info message to the console.
+     * @param msg message
+     */
+    private static void infoMessage(String msg) {
+        System.out.println("Info - " + msg);
+    }
+
+    /**
+     * print error message to the console.
      * @param errorMsg
      */
     private static void exitError(String errorMsg) {

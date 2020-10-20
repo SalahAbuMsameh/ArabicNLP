@@ -13,9 +13,9 @@ import java.util.Optional;
  */
 public class PolaritySentenceAnalyzer {
 
-    private static final String POSITIVE = "Pos";
-    private static final String NEGATIVE = "Neg";
-    private static final String NEUTRAL = "Neut";
+    public static final String POSITIVE = "Pos";
+    public static final String NEGATIVE = "Neg";
+    public static final String NEUTRAL = "Neut";
 
     private Map<String, String> oneLexiconTerms;
     private Map<String, String> twoLexiconTerms;
